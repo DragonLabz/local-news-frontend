@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>User Management</h2>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Add User Form -->
+  <div class="form-group">
+    <h3>Add User</h3>
+    <input [(ngModel)]="newUser.name" placeholder="Name" class="form-control" required>
+    <input [(ngModel)]="newUser.email" placeholder="Email" class="form-control" required>
+    <button (click)="addUser()" class="btn btn-primary mt-2">Add</button>
+  </div>
+
+  <!-- Edit User Form -->
+  <div *ngIf="editUser" class="form-group">
+    <h3>Edit User</h3>
+    <input [(ngModel)]="editUser.name" placeholder="Name" class="form-control" required>
+    <input [(ngModel)]="editUser.email" placeholder="Email" class="form-control" required>
+    <button (click)="updateUser()" class="btn btn-success mt-2">Update</button>
+    <button (click)="cancelEdit()" class="btn btn-secondary mt-2">Cancel</button>
+  </div>
+
+  <!-- Users Table -->
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <button (click)="editUserStart(user)" class="btn btn-warning btn-sm">Edit</button>
+        <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="users.length === 0">
+      <td colspan="4" class="text-center">No users found</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
